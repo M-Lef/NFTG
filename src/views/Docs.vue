@@ -44,15 +44,15 @@ export default {
       font-size:20px;
       background-color:#e6e6e6;
       text-align: left;
-      color:#2c1212;
+      color:#524d4d;
       border-radius: 1.5%;
       box-shadow: 2px 2px 2px rgb(71, 69, 69);
     }
     h1, h2, h3, h4 {
         margin-bottom: 32px;
         padding-left: 16px;
-        border-left: solid 4px gray;
-        color: gray;
+        border-left: solid 4px rgb(0, 0, 0);
+        color: rgb(59, 46, 46);
     }
     p {
         margin-bottom: 16px;
