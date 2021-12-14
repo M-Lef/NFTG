@@ -1,41 +1,35 @@
 <script>
 import SidebarLink from './SidebarLink'
-import store from '@/store/index.js'
 
 export default {
   props: {},
-  components: { SidebarLink },
-  methods: {
-    GetPixel () {
-      if (store.state.collapse === true) {
-        return 38
-      } else {
-        return 180
-      }
-    }
+  components:
+  {
+    SidebarLink
   }
 }
 </script>
 
 <template>
-  <div class="sidebar" :style="{ width: `${$store.state.collapsed ? 38 : 180}px` }">
+  <div class="sidebar" :style="{ width: $store.state.NavBarwidth }">
     <h1>
       <span v-cloak v-if="$store.state.collapsed">
-        <img src="@/assets/sword.png" width="50" height="50">
+        <img src="@/assets/sword.png" transition="0.45s" width="50" height="50" style="position: absolute;left:0;top:0">
       </span>
       <span v-else>
-        <img src="@/assets/sword.png" width="100" height="100">
+        <img src="@/assets/sword.png" transition="0.45s" width="50" height="50" style="position: absolute;left:0;top:0">
+        <h6 class= "title">Olympium</h6>
       </span>
     </h1>
     <span class='line' />
-    <SidebarLink to="/" icon="fas fa-columns">Dashboard</SidebarLink>
-    <SidebarLink to="/user" icon="fas fa-user-circle">Profil</SidebarLink>
-    <SidebarLink to="/docs" icon="fas fa-archive">Docs</SidebarLink>
+    <SidebarLink to="dashboard" icon="fas fa-columns">Dashboard</SidebarLink>
+    <SidebarLink to="user" icon="fas fa-user-circle">Profil</SidebarLink>
+    <SidebarLink to="docs" icon="fas fa-archive">Docs</SidebarLink>
+    <span class='lightline' />
     <span
       class="collapse-icon"
       :class="{ 'rotate-180': $store.state.collapsed }"
-      @click="$store.commit('toggleBar')"
-    >
+      @click="$store.commit('toggleBar')" >
       <i class="fas fa-angle-double-left" />
     </span>
   </div>
@@ -53,30 +47,51 @@ export default {
 </style>
 
 <style scoped>
-[v-cloak] {
-  display: none;
+.image {
+  width: 50;
+  height: 50;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.title {
+  font-style: italic;
+  color: gold;
 }
 .sidebar {
+  transition: 0.45s;
+
   color: white;
   background-color: var(--sidebar-bg-color);
 
+  border-end-end-radius: 10px;
+  border-top-right-radius: 10px;
+
   float: left;
   position: fixed;
-  z-index: 1;
+  z-index: 0;
   top: 0;
   left: 0;
   bottom: 0;
   padding: 1em;
-
-  transition: 0.45s ease;
 
   display: flex;
   flex-direction: column;
 }
 
 .line {
+  margin-left: 2px;
   border-bottom: solid #ccc;
   height: 1px;
+  display: block;
+}
+
+.lightline {
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: solid #ccc;
+  padding-bottom: 20px;
+  width: 20%;
   display: block;
 }
 

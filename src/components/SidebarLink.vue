@@ -3,14 +3,12 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 export default {
-  props: {
-    to: { type: String, required: true },
-    icon: { type: String, required: true }
-  },
+  props: ['to', 'icon'],
   setup (props) {
-    const route = useRoute()
-    const isActive = computed(() => route.path === props.to)
-    return isActive
+    const isActive = computed(() => {
+      return useRoute().name === props.to
+    })
+    return { isActive }
   }
 }
 </script>

@@ -2,16 +2,18 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    collapsed: false
+    collapsed: false,
+    NavBarwidth: `${11}vw`,
+    active: ''
   },
   mutations: {
     toggleBar (state) {
       state.collapsed = !state.collapsed
-    }
-  },
-  actions: {
-    sidebarWidth (state) {
-      return state.collapsed ? 38 : 180
+      if (state.NavBarwidth === `${11}vw`) {
+        state.NavBarwidth = `${3}vw`
+      } else {
+        state.NavBarwidth = `${11}vw`
+      }
     }
   },
   modules: {
