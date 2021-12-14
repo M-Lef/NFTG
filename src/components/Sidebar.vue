@@ -18,7 +18,9 @@ export default {
       </span>
       <span v-else>
         <img src="@/assets/sword.png" transition="0.45s" width="50" height="50" style="position: absolute;left:0;top:0">
-        <h6 class= "title">Olympium</h6>
+        <h5 class="logo-title d-flex align-items-center fw-bold">
+            Olympium
+        </h5>
       </span>
     </h1>
     <span class='line' />
