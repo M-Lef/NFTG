@@ -24,9 +24,11 @@ export default {
       </span>
     </h1>
     <span class='line' />
-    <SidebarLink to="dashboard" icon="fas fa-columns">Dashboard</SidebarLink>
-    <SidebarLink to="user" icon="fas fa-user-circle">Profil</SidebarLink>
-    <SidebarLink to="docs" icon="fas fa-archive">Docs</SidebarLink>
+    <transition name="fade">
+      <SidebarLink to="dashboard" icon="fas fa-columns">Dashboard</SidebarLink>
+      <SidebarLink to="user" icon="fas fa-user-circle">Profil</SidebarLink>
+      <SidebarLink to="docs" icon="fas fa-archive">Docs</SidebarLink>
+    </transition>
     <span class='lightline' />
     <span
       class="collapse-icon"
@@ -113,5 +115,18 @@ export default {
 
 .rotate-180 {
   transform: rotate(180deg);
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

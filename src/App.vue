@@ -4,16 +4,15 @@ export default {
   components: { Sidebar }
 }
 </script>
-<template>
-  <Sidebar />
+<template >
+  <Sidebar/>
   <router-link to="/" />
   <router-view />
 </template>
 
 <style>
-#app {
+body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
-  background-color: rgb(198, 241, 200);
+  background-color: rgb(202, 200, 200);
 }
 </style>
