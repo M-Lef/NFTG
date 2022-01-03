@@ -1,0 +1,492 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box; // ou content-box
+    // pour eviter les probleme de calcul de padding + border quand on fait des %
+}
+:root {
+    --primary-color: #007AF3!important; // permet de mettre quand qu'il arrive cette attribut si l'elem partage plusieurs
+                                          // classe, (voir fiche des points d'importance https://specificity.keegan.st/)
+}
+
+body {
+    background: #F2F2F2;
+    margin: 0; // espacement exterieur du bloc
+    padding: 0; // espacement interieur du bloc
+    font-family: 'Poppins';//, 'Helvitia', sans-serif (sans detail), serif... 
+                           //  si la typo n'est pas dispo, choisit le suivant selon l'ordre
+}
+
+////// Background : - background-color : white; permet de mettre une couleur de fond
+//                  - background-image : url("../sus.jpeg"); avec la fonction background-repeat si petite image
+//                       -> linear-gradient(to ...) ; pour avoir un degradé de couleur ou d'opacité
+//                  - background-position : center top; permet de positonner l'image dans le background
+//                  - background-size : cover/contain/30%; permet de gerer comment l'image rempli le block
+//                  - background-attachment : scroll/fixed/local; permet de gerer comment l'image lors du scroll
+
+
+////// Unité : - valeur abosolue : px, cm, mm, in...
+//             - valeur relative : % en fonction du parent, vw/vh relatif a la fenetre
+//                            em depend de la taille de la police, rem depend de la police de la racine (body)
+
+
+////// Display : - none, permet de cacher un elem (!= opacity : 0 car il est pres mais pas visible (prend tj de l'espqce))
+//               - bloc, met les elements a la ligne meme si il y a le place a droite
+//               - grid, permet de mettre en deux dimension layout (ex : 3x3 image), on peut choisir les dim en fn de l'appareil Users
+//               - flex,
+//               Mettre une direction flex-direction: row/column; flex-wrap: wrap -> permet de mettre a la ligne
+//               flex-flow: row/column wrap; -> raccourci
+//               justify-content: center/flex-start/space-around/space-between -> espacement des elem
+//               align-item: flex-start/center/stretch -> mode d'alignement des items; 
+//               align-self: ..; permet d'override les propriete de align item du parent
+//               align-content: ..; permet de déterminer l'espace entre les lignes
+//               gap, row-gap, column-gap -> permet d'espacer les items entre eux
+//               order: -1/1/2/3...; pour mettre l'ordre dans les flex box
+//               flex-grow : 1/10; (augmentation propor), flex-shrink: 1/10; (reduction propor), white-space: nowrap; pas saut de ligne
+//               centre un elem : yo { display: flex; justify-content: center; align-item: center; }
+//               site pour comprendre https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+//               voir : https://www.youtube.com/watch?v=LNqBKTeeiWo&list=PLjwdMgw5TTLVjTZQocrMwKicV5wsZlRpj&index=10&ab_channel=Grafikart.fr
+//               - inline-block, permet de mettre des blocs a la suite des autres (a leur droite)
+//               - inline, souvent utiliser sur du text, permet de modifier la typographie mais pas la position, taille...
+
+
+///// Position : - static, position normal
+//               - absolute, position definition par des valeurs absolue,
+//               - relative, position plus relative au parent (decalage negatif), 
+//                change ses enfants absolute (ex: bouton en haut a gauche du bloc et non de la page) 
+//               - fixed, position reste en permanence sur la fenetre (ex : navbar)
+//               - unset, 
+//               - sticky, si l'element est encore dans le parent et qu'on scroll apres, 
+//               il va rester jusqu a ce que l'utilisateur ne voit plus le parent
+//               Bonus : z-index -> pour savoir qu elle element est au dessus d une autre (marche uniquement avec 2 elem abso?)
+
+
+///// Float : none/right/left/center -> va permettre de decaler un element par rapport a un autre
+//            ex : image inserer a cause dans un paragraphe (genre journal)
+//            attention le type de display va etre convertie en block automatiquement
+//            clear right/left... quand l'elem depasse sur d autre elem
+//            overflow : hidden; mettre dans un parent pour que la taille soit calculé correctement
+//            ca creer tarpin de bug
+
+
+///// Transform :  translate(10px, 10px); permet de bouger un block sans avoir de consequence sur le reste (!= de position : relative)
+//                    -> permet de positionner un elem par rapport un autre (ex : notification 1, image ratonlaveur avec pos absolute)
+//                 rotate(30deg/-0.3turn); rotation
+//                 scale(0.5)/scale(3, 4); fait grossir l'image, peut etre utile quand on survole l'elem (:hover)
+//                 transform-origin: left top; pour appliquer un effet a partir d'un endroit particulier (pour rotate surtout)
+//                 perspective: 800px; pour jouer sur l'axe z
+//                 transform-style: inherit/initial; pour savoir si les enfants sont affecté par la transformation
+
+
+///// Transition : margin-right(nom de la propriété), .5s (durée de l'anim), fnct  d'anim ,1s (durée avant que l'animation ce fasse)
+//                    -> super utile pour bouger des obj ou augmenter/reduire l'opacite d'un text quand on hover
+//                    -> cubic-bezier(...) pour creer ses propres effet d'animation; on créer cette fn grace au web, inspecter
+
+
+///// Animation : - animName, duration, fnct d'anim, delay, nb iteration (1,2,3,infinite), direction, fill-mode, play-state (ex: pause)
+//                      -> fill-mode : permet de savoir comment finis l'animation (none, forward, backward, both)
+//                - Creer un keyframe : @keyframes slideDown { 0%/from { transform: translateY(0); opacity: 0.5;} 25% {.} 100%/to {.}}
+//                      -> slideDown est l'animName
+
+
+///// SpeudoElement : permet d'avoir un code plus lisible et de ne pas rajouter du html inutilement
+//                    - ::after/::before : permet de rajouter des elem dans des elem
+//                    attr() permet de recuperer des elem qu'on passe depuis l'html (ex :<a data-cnt='3' ...>  counter: atr(data-cnt ))
+//                    couter() et counter-increment peut etre interressanter pour compter des elem
+
+
+.navbar {
+    background: white;
+    padding: 1em;
+
+    .logo {
+        text-decoration: none;
+        font-weight: bold; //100 a 900 ou lighter/normal/medium/bolder ou inherit/unset/initial
+        color: black; //utilisé uniquement pour le texte uniquement
+        font-size: 1.2em;
+
+        span {
+            color: var(--primary-color);
+        }
+    }
+
+    nav {
+        display: none;
+    }
+    
+    .container {
+        display: flex;
+        place-content: space-between;
+    }
+
+    .mobile-menu {
+        cursor: pointer; // Change le type de pointeur (cliquable)
+    }
+}
+
+a {
+    color: #444444;
+}
+
+ul {
+   list-style-type: none; 
+   margin: 0;
+   padding: 0;
+}
+
+section {
+    padding: 5em 2em;
+}
+
+.hero {
+    text-align: center; //justify
+    //attention on peut faire center si le display type est inline ou inline block
+    //overflow-wrap: normal; pour que le text prenne toute la ligne pour pas avoir de trou
+}
+
+.left-col {
+
+    .subhead {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: gray;
+        letter-spacing: .3em;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        line-height: 1.3em;
+        margin-top: .2em;
+    }
+
+    .primary-cta {
+        background: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        padding: .6em 1.3em;
+        font-size: 1.4em;
+        border-radius: 5em;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .watch-video-cta {
+        display: block;
+        margin-top: 1em;
+
+        img {
+            margin-right: .5em;
+        }
+    }
+}
+
+.hero-img {
+    width: 70%;
+    margin-top: 3em;
+}
+
+section.features-section {
+    background: #20272E;
+    color: white;
+}
+
+ul.features-list {
+    margin: 0;
+    padding-left: .1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+
+    li {
+        font-size: 1.1em;
+        margin-bottom: 1em;
+        margin-left: 2em;
+        position: relative;
+
+        &:before {
+            content: '';
+            left: -2em;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-image: url('../images/bullet.svg');
+            background-size: contain;
+            margin-right: .5em;
+        }
+    }
+}
+
+.features-section img {
+    display: none;
+}
+
+.testimonials-section {
+    background: var(--primary-color);
+    color: white;
+
+    li {
+        background: #006BD6;
+        text-align: center;
+        padding: 2em 1em;
+        width: 80%;
+        margin: 0 auto 5em auto;
+        border-radius: 1em;
+
+        img {
+            width: 5em;
+            height: 5em;
+            border: 5px solid #006BD6;
+            border-radius: 50%;
+            margin-top: -4.5em;
+        }
+    }
+
+}
+
+h2 {
+    font-size: 2em;
+}
+
+label {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: .5em;
+}
+
+input, textarea {
+    width: 100%;
+    padding: .8em;
+    margin-bottom: 1em;
+    border-radius: .3em;
+    border: 1px solid gray;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    border: none;
+    margin-bottom: 5em;
+    border-radius: 5em;
+    display: inline-block;
+    padding: .8em 2em;
+    width: unset;
+    cursor: pointer;
+}
+
+iframe {
+    width: 100%;
+    height: 300px;
+}
+
+nav.menu-btn {
+    display: block;
+}
+
+nav {
+    position: fixed;
+    z-index: 999;
+    width: 66%;
+    right: 0;
+    top: 0;
+    background: #20272E;
+    height: 100vh;
+    padding: 1em;
+
+    ul.primary-nav {
+        margin-top: 5em;
+    }
+
+    li {
+        
+        a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: .5em;
+            font-size: 1.3em;
+            text-align: right;
+
+            &:hover {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.mobile-menu-exit {
+    float: right;
+    margin: .5em;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .mobile-menu, .mobile-menu-exit {
+        display: none;
+    }
+
+    .navbar .container {
+        display: grid;
+        grid-template-columns: 180px auto;
+        justify-content: unset;
+    }
+
+    .navbar nav {
+        display: flex;
+        justify-content: space-between;
+        background: none;
+        position: unset;
+        height: auto;
+        width: 100%;
+        padding: 0;
+
+        ul {
+            display: flex;
+        }
+
+        a {
+            color: black;
+            font-size: 1em;
+            padding: .1em 1em;
+        }
+
+        ul.primary-nav {
+            margin: 0;
+        }
+
+        li.current a {
+            font-weight: bold;
+        }
+        li.go-premium-cta a {
+            color: var(--primary-color);
+            border: 3px solid var(--primary-color);
+            font-weight: bold;
+            border-radius: 5em;
+            margin-top: -.2em;
+
+            &:hover {
+                background: var(--primary-color);
+                color: white;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+    .container {
+        width: 1080px;
+        margin: 0 auto;
+    }
+
+    section {
+        padding: 10em 4em;
+    }
+
+    .hero .container {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+
+        .left-col {
+            margin: 3em 3em 0 5em;
+
+            h1 {
+                font-size: 3em;
+                width: 90%;
+            }
+        }
+    }
+
+    .hero-img {
+        width: 30%;
+        margin-right: 8em;
+    }
+
+    .hero-cta {
+        display: flex;
+    }
+    .primary-cta {
+        margin-right: 1em;
+    }
+
+    ul.features-list {
+        display: block;
+        margin-left: 5em;
+
+        li {
+            font-size: 1.4em;
+
+            &:before {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    }
+
+    .features-section {
+        position: relative;
+    }
+
+    .features-section img {
+        display: block;
+        position: absolute;
+        right: 0;
+        width: 350px;
+        bottom: -2em;
+    }
+
+    .testimonials-section ul {
+        display: flex;
+        
+        li {
+            margin: 0 1em;
+        }
+    }
+
+    .contact-section {
+        position: relative;
+
+        .container {
+            display: flex;
+        }
+    }
+
+    .contact-right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 45%;
+        height: 100%;
+
+        iframe {
+            height: 100%;
+        }
+    }
+}
+
+@media only screen and (min-width: 1450px) {
+    .features-section {
+
+        &:before {
+            content: '';
+            position: absolute;
+            width: 10%;
+            height: 20em;
+            background: var(--primary-color);
+            left: 0;
+            top: -4em;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 20em;
+            background: url('../images/dots.svg') no-repeat;
+            left: 4.5em;
+            top: 2em;
+        }
+    }
+}

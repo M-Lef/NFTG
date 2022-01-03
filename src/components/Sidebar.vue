@@ -12,30 +12,31 @@ export default {
 
 <template>
   <div class="sidebar" :style="{ width: $store.state.NavBarwidth }">
-    <h1>
-      <span v-cloak v-if="$store.state.collapsed">
-        <img src="@/assets/sword.png" transition="0.45s" width="50" height="50" style="position: absolute;left:0;top:0">
-      </span>
-      <span v-else>
-        <img src="@/assets/sword.png" transition="0.45s" width="50" height="50" style="position: absolute;left:0;top:0">
-        <h5 class="logo-title d-flex align-items-center fw-bold">
+    <div class=sidebar-top>
+      <img src="@/assets/sword.png" transition="0.45s" width="50" height="50" style="left:0;top:0">
+      <span v-cloak v-if="!$store.state.collapsed">
+        <h2 class="title">
             Olympium
-        </h5>
+        </h2>
       </span>
-    </h1>
-    <span class='line' />
-    <transition name="fade">
+    </div>
+    <div>
+      <span class='line' />
+    </div>
+    <!-- <transition name="fade"> -->
+    <div>
       <SidebarLink to="dashboard" icon="fas fa-columns">Dashboard</SidebarLink>
       <SidebarLink to="user" icon="fas fa-user-circle">Profil</SidebarLink>
       <SidebarLink to="docs" icon="fas fa-archive">Docs</SidebarLink>
-    </transition>
-    <span class='lightline' />
-    <span
-      class="collapse-icon"
-      :class="{ 'rotate-180': $store.state.collapsed }"
-      @click="$store.commit('toggleBar')" >
-      <i class="fas fa-angle-double-left" />
-    </span>
+      <!-- </transition> -->
+      <span class='lightline' />
+      <span
+        class="collapse-icon"
+        :class="{ 'rotate-180': $store.state.collapsed }"
+        @click="$store.commit('toggleBar')" >
+        <i class="fas fa-angle-double-left" />
+      </span>
+    </div>
   </div>
 </template>
 
@@ -51,6 +52,9 @@ export default {
 </style>
 
 <style scoped>
+.sidebar-top {
+  display: inline-block;
+}
 .image {
   width: 50;
   height: 50;
@@ -59,8 +63,10 @@ export default {
   top:0;
 }
 .title {
+  text-align: center;
   font-style: italic;
-  color: gold;
+  font-weight: bold;
+  color: rgb(236, 236, 236);
 }
 .sidebar {
   transition: 0.45s;

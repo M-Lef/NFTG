@@ -47,7 +47,7 @@ span {
     text-align: left;
     color:#524d4d;
     border-radius: 1.5%;
-    box-shadow: 2px 2px 2px rgb(90, 87, 87);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
 }
 h1, h2, h3, h4 {
     margin-bottom: 32px;
