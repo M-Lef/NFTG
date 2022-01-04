@@ -13,12 +13,17 @@ export default {
 <template>
   <div class="sidebar" :style="{ width: $store.state.NavBarwidth }">
     <div class=sidebar-top>
-      <img src="@/assets/sword.png" transition="0.45s" width="50" height="50" style="left:0;top:0">
-      <span v-cloak v-if="!$store.state.collapsed">
+      <img class="sword" src="@/assets/sword.png">
+      <div v-cloak v-if="!$store.state.collapsed">
         <h2 class="title">
             Olympium
         </h2>
-      </span>
+      </div>
+      <div class="collapse-icon"
+        :class="{ 'rotate-180': $store.state.collapsed }"
+        @click="$store.commit('toggleBar')" >
+        <div class="fas fa-angle-double-left" />
+      </div>
     </div>
     <div>
       <span class='line' />
@@ -30,12 +35,6 @@ export default {
       <SidebarLink to="docs" icon="fas fa-archive">Docs</SidebarLink>
       <!-- </transition> -->
       <span class='lightline' />
-      <span
-        class="collapse-icon"
-        :class="{ 'rotate-180': $store.state.collapsed }"
-        @click="$store.commit('toggleBar')" >
-        <i class="fas fa-angle-double-left" />
-      </span>
     </div>
   </div>
 </template>
@@ -51,76 +50,83 @@ export default {
 }
 </style>
 
-<style scoped>
-.sidebar-top {
-  display: inline-block;
-}
-.image {
-  width: 50;
-  height: 50;
-  position: absolute;
-  left:0;
-  top:0;
-}
-.title {
-  text-align: center;
-  font-style: italic;
-  font-weight: bold;
-  color: rgb(236, 236, 236);
-}
+<style lang="scss" scoped>
 .sidebar {
-  transition: 0.45s;
-
-  color: white;
   background-color: var(--sidebar-bg-color);
+  color: white;
 
-  border-end-end-radius: 10px;
-  border-top-right-radius: 10px;
-
-  float: left;
   position: fixed;
-  z-index: 0;
   top: 0;
   left: 0;
   bottom: 0;
-  padding: 1em;
+  border-radius: 0px 10px 10px 0px;
 
-  display: flex;
-  flex-direction: column;
-}
+  transition: 0.45s;
 
-.line {
-  margin-left: 2px;
-  border-bottom: solid #ccc;
-  height: 1px;
-  display: block;
-}
+  .sidebar-top {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0px;
+    height: 70px;
 
-.lightline {
-  margin-left: auto;
-  margin-right: auto;
-  border-bottom: solid #ccc;
-  padding-bottom: 20px;
-  width: 20%;
-  display: block;
+    .sword {
+      right: 0px;
+      top: 0px;
+    }
+
+    .collapse-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      background-color: rgb(32, 32, 32);
+      text-align: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      top: 27.5px;
+      right: -14px;
+      cursor: pointer;
+
+      color: rgba(255, 255, 255, 0.7);
+
+      transition: 0.4s linear;
+    }
+
+    .rotate-180 {
+      transform: rotate(180deg);
+    }
+  }
+
+  .title {
+    text-align: center;
+    font-weight: bold;
+    color: rgb(4, 8, 1);
+  }
+
+  .line {
+    align-content: center;
+    border-bottom: solid #ccc;
+    height: 1px;
+    margin-right: 15px;
+    margin-left: 15px;
+    display: block;
+  }
+
+  .lightline {
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: solid #ccc;
+    padding-bottom: 20px;
+    width: 20%;
+    display: block;
+  }
 }
 
 .sidebar h1 {
   height: 2.5em;
-}
-
-.collapse-icon {
-  position: absolute;
-  bottom: 0;
-  padding: 0.75em;
-
-  color: rgba(255, 255, 255, 0.7);
-
-  transition: 0.2s linear;
-}
-
-.rotate-180 {
-  transform: rotate(180deg);
 }
 
 .fade-enter {
